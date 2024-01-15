@@ -20,14 +20,14 @@ export default {
 
         <div class="container">
             <div class="row">
-                <div class="col-2 my-2" v-for="movie, index in store.searchedMovies" :key="index" :vote="movie.vote_average">
+                <div class="col-2 my-2" v-for="movie, index in store.searchedMovies" :key="index">
                     <div class="my-card text-center">
                        <ul class="list-unstyled">
-                        <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" class="poster">
+                        <img :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" class="poster">
                         <li>{{ movie.title }}</li>
                         <li>{{ movie.original_title }}</li>
                         <li><img :src="movie.flag"></li>
-                        <li><StarsVote /></li>
+                        <li><StarsVote :vote="movie.vote_average" /></li>
                        </ul>
                     </div>
                 </div>
