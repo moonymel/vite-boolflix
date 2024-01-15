@@ -12,22 +12,22 @@ export default {
 </script>
 
 <template lang="">
-    <div class="bg-dark">
+
         <div class="container">
             <div class="row">
                 <div class="col-2 my-2" v-for="movie, index in store.searchedMovies" :key="index">
                     <div class="my-card text-center">
-                       <ul>
+                       <ul class="list-unstyled">
                         <li>{{ movie.title }}</li>
                         <li>{{ movie.original_title }}</li>
-                        <li>{{ movie.original_language }}</li>
+                        <li><img :src="movie.flag"></li>
                         <li>{{ movie.vote_average }}</li>
                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
 </template>
 
 <style lang="scss">

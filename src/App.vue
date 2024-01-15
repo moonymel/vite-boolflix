@@ -32,16 +32,65 @@ export default {
 
       axios.get(apiUrl).then((response) => {
         store.searchedMovies = response.data.results;
+        this.languageToFlag();
         console.log(this.store.searchedMovies)
       })
     },
+
+    getSerie() {
+
+      let apiUrl = `${store.apiUrlSeries}api_key=${store.apiKey}&query=${store.searchingKey}&${store.language}`;
+
+      axios.get(apiUrl).then((response) => {
+        store.searchedSeries = response.data.results;
+        this.languageToFlag();
+        console.log(this.store.searchedSeries)
+      })
+    },
+
+    getSearch() {
+      this.getFilm();
+      this.getSerie();
+    },
+
+    languageToFlag() {
+      this.store.searchedMovies.forEach((elem) => {
+
+        elem.original_language = elem.original_language.toUpperCase();
+
+        if (elem.original_language == 'EN') {
+          elem.original_language = 'GB';
+        }
+
+        if (elem.original_language == 'JA') {
+          elem.original_language = 'JP';
+        }
+
+        elem.flag = `https://flagsapi.com/${elem.original_language}/shiny/24.png`;
+      })
+
+      this.store.searchedSeries.forEach((elem) => {
+
+        elem.original_language = elem.original_language.toUpperCase();
+
+        if (elem.original_language == 'EN') {
+          elem.original_language = 'GB';
+        }
+
+        if (elem.original_language == 'JA') {
+          elem.original_language = 'JP';
+        }
+
+        elem.flag = `https://flagsapi.com/${elem.original_language}/shiny/24.png`;
+      })
+    }
   }
 }
 </script>
 
 <template lang="">
   <div>
-    <AppSearch @start_search='getFilm'/>
+    <AppSearch @start_search='getSearch'/>
     <AppFilms />
     <AppSeries />
   </div>
@@ -50,9 +99,4 @@ export default {
 <style lang="scss" scoped>
 @use './styles/generals.scss' as *;
 @use './styles/partials/variables' as *;
-
-.bg-dark {
-  background-color: $dark_grey;
-  height: 200px;
-}
 </style>

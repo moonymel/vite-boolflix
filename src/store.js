@@ -7,5 +7,6 @@ export const store = reactive({
     language: 'language=it-IT',
     searchingKey: '',
     searchedMovies: [],
+    searchedSeries: [],
 
 })
