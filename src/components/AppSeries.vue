@@ -1,8 +1,14 @@
 <script>
 import { store } from '../store';
+import StarsVote from './StarsVote.vue'
 
 
 export default {
+
+    components: {
+        StarsVote,
+    },
+
     data() {
         return {
             store,
@@ -14,16 +20,26 @@ export default {
 
 <template lang="">
     <div class="container">
+        <div class="category">
+                Serie TV
+        </div>
             <div class="row">
                 <div class="col-2 my-2" v-for="serie, index in store.searchedSeries" :key="index">
-                    <div class="my-card text-center">
-                       <ul class="list-unstyled">
-                        <img :src="`https://image.tmdb.org/t/p/w342${serie.poster_path}`" class="poster">
-                        <li>{{ serie.name }}</li>
-                        <li>{{ serie.original_name }}</li>
-                        <li><img :src="serie.flag"></li>
-                        <li>{{ serie.vote_average }}</li>
-                       </ul>
+                    <div class="my-card my-2 text-center">
+                        <div class="flipping_card">
+                            <div class="poster">
+                                <img :src="`https://image.tmdb.org/t/p/w342${serie.poster_path}`" class="poster">
+                            </div>
+                            <div class="movie_card p-2">
+                                <ul class="list-unstyled">
+                                 <li class="title">{{ serie.name }}</li>
+                                 <li class="subtitle">{{ serie.original_name }}</li>
+                                 <li><img :src="serie.flag"></li>
+                                 <li><StarsVote :vote="serie.vote_average" /></li>
+                                 <li class="overview">{{ serie.overview }}</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -34,12 +50,69 @@ export default {
 @use '../styles/generals.scss' as *;
 @use '../styles/partials/variables' as *;
 
+.category {
+    @include category_title
+}
+
 .my-card {
     background-color: black;
     color: white;
+    height: 280px;
+    overflow: hidden;
 
-    img.poster {
+    .flipping_card {
+        position: relative;
         width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+
+        .poster {
+
+            img {
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .movie_card {
+
+            transform: rotateY(180deg);
+
+            .title {
+                @include card_title
+            }
+
+            .subtitle {
+                @include card_subtitle
+            }
+
+            .overview {
+                @include card_overview
+            }
+        }
+
+        .poster, .movie_card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            /* Safari */
+            backface-visibility: hidden;
+        }
+
     }
+
+
+    &:hover {
+
+        overflow-y: auto;
+
+        .flipping_card {
+            transform: rotateY(180deg);
+        }
+
+    }
+
+
 }
 </style>

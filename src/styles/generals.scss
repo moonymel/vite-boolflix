@@ -9,6 +9,16 @@
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+    background: transparent;
+    width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(41, 41, 41);
+    cursor: s-resize;
+}
+
 body {
     background-color: $dark_grey;
 }

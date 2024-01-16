@@ -6,3 +6,27 @@ $dark_grey: rgb(25, 25, 25);
     color: red;
     margin-left: 30px;
 }
+
+@mixin category_title {
+    color: white;
+    font-family: verdana;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@mixin card_title {
+    font-family: 'Bebas Neue';
+    font-size: 16px;
+    line-height: 14px;
+}
+
+@mixin card_subtitle {
+    font-size: 12px;
+    line-height: 12px;
+}
+
+@mixin card_overview {
+    font-size: 12px;
+    line-height: 12px;
+    text-align: justify;
+}
